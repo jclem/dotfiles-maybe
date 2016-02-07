@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.netrwhist
+.pgdata
+.pglog
+.sass-cache
+*.swp
+bower_components
+dump.rdb
+node_modules
+npm-debug.log
+tags

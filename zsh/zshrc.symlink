@@ -1,0 +1,37 @@
+# Source a local config file if it exists
+[ -e $HOME/.localrc ] && source $HOME/.localrc
+
+if [[ $CODE = '' ]]; then
+  export CODE=$HOME/Code
+fi
+
+export ZSH=$CODE/dotfiles
+
+# Load NVM (Node Version Manager)
+export NVM_DIR=$HOME/.nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+export EDITOR="atom --wait"
+
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+
+# Load chruby, if it's installed
+CHRUBY=$(brew --prefix chruby 2> /dev/null)
+
+if [[ -n "$CHRUBY" ]]; then
+  source $CHRUBY/share/chruby/chruby.sh
+  source $CHRUBY/share/chruby/auto.sh
+  chruby 2.3.0
+fi
+
+eval "$(hub alias -s)"
+
+for config_file ($ZSH/**/*.zsh) {
+  source $config_file
+}
+
+autoload -U compinit && compinit
+
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=$HOME/.history
